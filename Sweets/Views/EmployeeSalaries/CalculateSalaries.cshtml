@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Расчет зарплат сотрудников";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="CalculateSalaries" method="post">
+    <div class="form-group">
+        <label for="year">Год</label>
+        <input type="number" class="form-control" id="year" name="year" required />
+    </div>
+    <div class="form-group">
+        <label for="month">Месяц</label>
+        <input type="number" class="form-control" id="month" name="month" required min="1" max="12" />
+    </div>
+    <button type="submit" class="btn btn-primary">Рассчитать</button>
+</form>
+
+<!-- Если есть ошибки, выводим их -->
+@if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString()))
+{
+    <div class="alert alert-danger mt-3">
+        <strong>Ошибка!</strong> @ViewData["ErrorMessage"]
+    </div>
+}

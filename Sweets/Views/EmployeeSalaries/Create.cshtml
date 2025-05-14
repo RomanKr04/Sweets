@@ -1,0 +1,78 @@
+﻿@model Sweets.Models.EmployeeSalary
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>EmployeeSalary</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <input asp-for="EmployeeId" class="form-control" />
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Month" class="control-label"></label>
+                <input asp-for="Month" class="form-control" />
+                <span asp-validation-for="Month" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalPurchases" class="control-label"></label>
+                <input asp-for="TotalPurchases" class="form-control" />
+                <span asp-validation-for="TotalPurchases" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalManufacturing" class="control-label"></label>
+                <input asp-for="TotalManufacturing" class="form-control" />
+                <span asp-validation-for="TotalManufacturing" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalSales" class="control-label"></label>
+                <input asp-for="TotalSales" class="form-control" />
+                <span asp-validation-for="TotalSales" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalAllParticipations" class="control-label"></label>
+                <input asp-for="TotalAllParticipations" class="form-control" />
+                <span asp-validation-for="TotalAllParticipations" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BonusTotal" class="control-label"></label>
+                <input asp-for="BonusTotal" class="form-control" />
+                <span asp-validation-for="BonusTotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalSalary" class="control-label"></label>
+                <input asp-for="TotalSalary" class="form-control" />
+                <span asp-validation-for="TotalSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Sweets.Models.ProductSale>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a href="/ProductSales/Create">Create New</a>
+</p>
+
+<table border="1" class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total Cost</th>
+            <th>Sale Date</th>
+            <th>Employee</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.TotalCost</td>
+                <td>@item.SaleDate.ToShortDateString()</td>
+                <td>@item.Employee.FullName</td>
+                <td>
+                    <a href="/ProductSales/Edit/@item.Id">Edit</a> |
+                    <a href="/ProductSales/Details/@item.Id">Details</a> |
+                    <a href="/ProductSales/Delete/@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

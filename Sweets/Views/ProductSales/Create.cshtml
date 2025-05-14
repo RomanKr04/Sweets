@@ -1,0 +1,73 @@
+﻿@model Sweets.Models.ProductSale
+
+@{
+    ViewData["Title"] = "Create Sale";
+}
+
+<h1>Create</h1>
+
+<h4>Product Sale</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="ProductID" class="control-label">Product</label>
+                <select asp-for="ProductID" class="form-control" asp-items="ViewBag.ProductID">
+                    <option value="">-- Select Product --</option>
+                </select>
+                <span asp-validation-for="ProductID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" type="number" min="1" step="1" value="1" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SaleDate" class="control-label">Sale Date</label>
+                <input asp-for="SaleDate" class="form-control" type="date"
+                       value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="SaleDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EmployeeID" class="control-label">Employee</label>
+                <select asp-for="EmployeeID" class="form-control" asp-items="ViewBag.EmployeeID">
+                    <option value="">-- Select Employee --</option>
+                </select>
+                <span asp-validation-for="EmployeeID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Optional: Add real-time validation or calculations
+        $(document).ready(function() {
+            // You could add logic to calculate total cost or validate stock here
+            $('#ProductID').change(function() {
+                // Example: Could fetch product price and update UI
+            });
+
+            $('#Quantity').change(function() {
+                // Example: Validate against available quantity
+            });
+        });
+    </script>
+}

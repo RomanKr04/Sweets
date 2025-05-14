@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sweets</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Sweets.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+</head>
+<body>
+    <div class="d-flex">
+        <nav class="bg-light border-end vh-100 p-3" style="min-width: 220px;">
+            <h4 class="text-center mb-4">
+                <a class="text-center mb-4" asp-controller="Home" asp-action="Index">
+                    🍬 Sweets
+                </a>
+            </h4>
+
+            <ul class="nav flex-column">
+
+                @if (User.IsInRole("Технолог") || User.IsInRole("Менеджер") || User.IsInRole("Админ"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" data-bs-toggle="collapse" href="#collapseProduction" role="button" aria-expanded="false" aria-controls="collapseProduction">
+                            <i class="bi bi-gear-wide-connected me-2"></i> Производство
+                        </a>
+                        <div class="collapse" id="collapseProduction">
+                            <ul class="nav flex-column ms-3">
+                                @if (User.IsInRole("Технолог") || User.IsInRole("Админ"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="FinishedProducts" asp-action="Index">
+                                            <i class="bi bi-box-seam me-2"></i> Готовые продукты
+                                        </a>
+                                    </li>}
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="ProductManufacturings" asp-action="Index">
+                                        <i class="bi bi-gear-fill me-2"></i> Производство
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                }
+
+                <!-- Склад и сырьё -->
+                @if (User.IsInRole("Менеджер") || User.IsInRole("Технолог") || User.IsInRole("Админ"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" data-bs-toggle="collapse" href="#collapseWarehouse" role="button" aria-expanded="false" aria-controls="collapseWarehouse">
+                            <i class="bi bi-boxes me-2"></i> Склад
+                        </a>
+                        <div class="collapse" id="collapseWarehouse">
+                            <ul class="nav flex-column ms-3">
+                                @if (User.IsInRole("Технолог") || User.IsInRole("Админ"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="RawMaterials" asp-action="Index">
+                                            <i class="bi bi-boxes me-2"></i> Склад сырья
+                                        </a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="RawMaterialPurchases" asp-action="Index">
+                                        <i class="bi bi-cart-plus-fill me-2"></i> Закупка сырья
+                                    </a>
+                                </li>
+                                @if (User.IsInRole("Технолог") || User.IsInRole("Админ"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Ingredients" asp-action="Index">
+                                            <i class="bi bi-basket-fill me-2"></i> Ингредиенты
+                                        </a>
+                                    </li>}
+                            </ul>
+                        </div>
+                    </li>
+                }
+                <!-- Финансы -->
+                @if (User.IsInRole("Админ") || User.IsInRole("Бухгалтер "))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" data-bs-toggle="collapse" href="#collapseFinance" role="button" aria-expanded="false" aria-controls="collapseFinance">
+                            <i class="bi bi-currency-dollar me-2"></i> Финансы
+                        </a>
+                        <div class="collapse" id="collapseFinance">
+                            <ul class="nav flex-column ms-3">
+                                @if (User.IsInRole("Директор") || User.IsInRole("Админ"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Budgets" asp-action="Index">
+                                            <i class="bi bi-cash-stack me-2"></i> Бюджет
+                                        </a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="ProductSales" asp-action="Index">
+                                        <i class="bi bi-currency-dollar me-2"></i> Продажа
+                                    </a>
+                                </li>
+                                @if (User.IsInRole("Директор") || User.IsInRole("Админ"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="EmployeeSalaries" asp-action="Index">
+                                            <i class="bi bi-wallet-fill me-2"></i> Зарплаты
+                                        </a>
+                                    </li>
+                                }
+                                @if (User.IsInRole("Директор") || User.IsInRole("Админ"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Payments" asp-action="Index">
+                                            <i class="bi bi-cash me-2"></i> Выплаты
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Credits" asp-action="Index">
+                                            <i class="bi bi-credit-card-2-front-fill me-2"></i> Кредит
+                                        </a>
+                                    </li>
+                                }
+
+                            </ul>
+                        </div>
+                    </li>
+                }
+
+                @if (User.IsInRole("Директор") || User.IsInRole("Админ"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" data-bs-toggle="collapse" href="#collapsePersonnel" role="button" aria-expanded="false" aria-controls="collapsePersonnel">
+                            <i class="bi bi-person-lines-fill me-2"></i> Персонал
+                        </a>
+                        <div class="collapse" id="collapsePersonnel">
+                            <ul class="nav flex-column ms-3">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Employees" asp-action="Index">
+                                        <i class="bi bi-people-fill me-2"></i> Сотрудники
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Positions" asp-action="Index">
+                                        <i class="bi bi-person-badge-fill me-2"></i> Должности
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                }
+                <!-- Прочее -->
+                @if (User.IsInRole("Технолог") || User.IsInRole("Админ"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Units" asp-action="Index">
+                            <i class="bi bi-rulers me-2"></i> Ед. измерения
+                        </a>
+                    </li>
+                }
+
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-link">Выход</button>
+                    </form>
+                }
+            </ul>
+
+            <div class="mt-4 text-muted small">
+                Счёт: @ViewBag.Budget
+            </div>
+        </nav>
+
+
+        <!-- Main content -->
+        <div class="flex-fill p-4">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - Sweets - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

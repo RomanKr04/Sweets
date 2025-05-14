@@ -1,0 +1,42 @@
+﻿@model Sweets.Models.Credit
+
+@{
+    ViewData["Title"] = "Create Credit";
+}
+
+<h1>Create Credit</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Amount" class="control-label"></label>
+        <input asp-for="Amount" class="form-control" />
+        <span asp-validation-for="Amount" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateReceived" class="control-label"></label>
+        <!-- Поле для выбора даты -->
+        <input asp-for="DateReceived" type="date" class="form-control" />
+        <span asp-validation-for="DateReceived" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TermYears" class="control-label"></label>
+        <input asp-for="TermYears" class="form-control" />
+        <span asp-validation-for="TermYears" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="InterestRate" class="control-label"></label>
+        <input asp-for="InterestRate" class="form-control" />
+        <span asp-validation-for="InterestRate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PenaltyRate" class="control-label"></label>
+        <input asp-for="PenaltyRate" class="form-control" />
+        <span asp-validation-for="PenaltyRate" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Sweets.Models.Credit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Credits</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().Amount)</th>
+            <th>@Html.DisplayNameFor(model => model.First().DateReceived)</th>
+            <th>@Html.DisplayNameFor(model => model.First().TermYears)</th>
+            <th>@Html.DisplayNameFor(model => model.First().InterestRate)</th>
+            <th>@Html.DisplayNameFor(model => model.First().PenaltyRate)</th>
+            <th>Payments</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var credit in Model)
+        {
+            <tr>
+                <td>@credit.Amount</td>
+                <td>@credit.DateReceived.ToString("yyyy-MM-dd")</td> <!-- Форматируем дату -->
+                <td>@credit.TermYears</td>
+                <td>@credit.InterestRate</td>
+                <td>@credit.PenaltyRate</td>
+                <td>
+                    @if (credit.Payments != null && credit.Payments.Any())
+                    {
+                        <ul>
+                            @foreach (var payment in credit.Payments)
+                            {
+                                <li>
+                                    @payment.PaymentDate.ToString("yyyy-MM-dd") - @payment.TotalPayment ₽
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>No payments</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@credit.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@credit.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@credit.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

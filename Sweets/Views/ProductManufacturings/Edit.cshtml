@@ -1,0 +1,49 @@
+﻿@model Sweets.Models.ProductManufacturing
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ProductManufacturing</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FinishedProductId" class="control-label"></label>
+                <input asp-for="FinishedProductId" class="form-control" />
+                <span asp-validation-for="FinishedProductId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ManufactureDate" class="control-label"></label>
+                <input asp-for="ManufactureDate" class="form-control" />
+                <span asp-validation-for="ManufactureDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeID" class="control-label"></label>
+                <select asp-for="EmployeeID" class="form-control" asp-items="ViewBag.EmployeeID"></select>
+                <span asp-validation-for="EmployeeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

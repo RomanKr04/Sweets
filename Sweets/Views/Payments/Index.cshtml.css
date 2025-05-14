@@ -1,0 +1,25 @@
+﻿/* Стиль для карточки формы */
+.card {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(33, 40, 50, 0.15);
+}
+
+.card-header {
+    font-weight: 500;
+    background-color: #f8f9fa;
+}
+
+/* Стиль для таблицы */
+.table {
+    margin-top: 20px;
+}
+
+    .table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+    }
+
+/* Стиль для кнопок */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}

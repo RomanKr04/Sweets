@@ -1,0 +1,95 @@
+﻿    @model IEnumerable<Sweets.Models.Ingredient>
+
+@{
+    ViewData["Title"] = "Ингредиенты продукта";
+}
+
+<h1>Ингредиенты продукта</h1>
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <p>
+        <a id="addNewIngredient" asp-action="Create" asp-route-productId="" class="btn btn-primary">Добавить новый</a>
+    </p>
+    <div>
+        <label for="productSelect" class="form-label">Выберите продукт:</label>
+        <select id="productSelect" class="form-select" onchange="updateAddButtonHref()">
+            <option value="">-- Все продукты --</option>
+            @foreach (var product in ViewBag.Products)
+            {
+                <option value="@product.Id">@product.Name</option>
+            }
+        </select>
+    </div>
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-light">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.RawMaterial)</th>
+            <th>@Html.DisplayNameFor(model => model.Quantity)</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody id="ingredientTable">
+        @foreach (var item in Model)
+        {
+            <tr data-product-id="@item.ProductID">
+                <td>@Html.DisplayFor(modelItem => item.RawMaterial.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Редактировать</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Детали</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var savedProductId = localStorage.getItem("selectedProductId");
+            if (savedProductId) {
+                var productSelect = document.getElementById("productSelect");
+                productSelect.value = savedProductId;
+                updateAddButtonHref();
+            }
+        });
+
+        function updateAddButtonHref() {
+            var selectedProductId = document.getElementById("productSelect").value;
+            localStorage.setItem("selectedProductId", selectedProductId); // Сохраняем выбор
+
+            var addButton = document.getElementById("addNewIngredient");
+            addButton.href = `/Ingredients/Create?productId=${selectedProductId}`;
+
+            document.querySelectorAll("#ingredientTable tr").forEach(row => {
+                row.style.display = (!selectedProductId || row.getAttribute("data-product-id") === selectedProductId) ? "" : "none";
+            });
+        }
+    </script>
+}
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+
+    h1 {
+        color: #007bff;
+    }
+
+    .btn {
+        margin: 5px;
+    }
+
+    .table {
+        margin-top: 20px;
+        border-radius: 0.25rem;
+        overflow: hidden;
+    }
+</style>

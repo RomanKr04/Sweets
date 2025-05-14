@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Sweets.Models.Payment>
+@{
+    ViewData["Title"] = "Платежи";
+}
+
+<!-- Вывод сообщений об ошибках и успехах -->
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        @TempData["Message"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+        @TempData["Error"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<!-- Форма для создания выплаты -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5>Создать выплату</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="MakePayment" method="post" class="form-inline">
+            <div class="form-group mr-3">
+                <label class="mr-2">Кредит:</label>
+                <select name="creditId" class="form-control" asp-items="ViewBag.CreditList"></select>
+            </div>
+            <div class="form-group mr-3">
+                <label class="mr-2">Дата платежа:</label>
+                <input type="date" name="paymentDate" class="form-control"
+                       value="@DateTime.Now.ToString("yyyy-MM-dd")">
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-money-bill-wave"></i> Сделать выплату
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Таблица с платежами -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID кредита</th>
+            <th>Номер платежа</th>
+            <th>Дата</th>
+            <th>Сумма</th>
+            <th>Просрочные дни</th>
+            <th>Пени</th>
+            <th>Итоговая сумма</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CreditId</td>
+                <td>@item.PaymentNumber</td>
+                <td>@item.PaymentDate.ToString("dd.MM.yyyy")</td>
+                <td>@item.TotalPayment.ToString("N2")</td>
+                <td>@item.OverdueDays</td>
+                <td>@item.PenaltyAmount.ToString("N2")</td>
+                <td>@item.TotalWithPenalty</td>
+                <td>
+                    <a asp-action="Details"
+                       asp-route-creditId="@item.CreditId"
+                       asp-route-paymentNumber="@item.PaymentNumber"
+                       class="btn btn-info btn-sm">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Подключение Font Awesome для иконок -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+@section Scripts {
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const dateInput = document.querySelector('input[name="paymentDate"]');
+            if (!dateInput.value) {
+                alert('Пожалуйста, выберите дату платежа');
+                e.preventDefault();
+            }
+        });
+    </script>
+}
